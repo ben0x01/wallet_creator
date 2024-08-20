@@ -1,6 +1,8 @@
 from config import AMOUNT_WALLETS, BTC_WALLET_SETUP
 from modules.bitcoin import BitcoinWalletGenerator
+from modules.eth import AsyncEthWalletGenerator
 from modules.solana import AsyncSolanaWalletGenerator
+from modules.ton import AsyncTonWalletGenerator
 
 
 async def solana_wallet_create():
@@ -13,3 +15,15 @@ async def bitcoin_wallet_create():
     btc_filename = input("Введите название файла для записи:")
     btc_generator = BitcoinWalletGenerator(AMOUNT_WALLETS, BTC_WALLET_SETUP, btc_filename)
     await btc_generator.run()
+
+
+async def eth_wallet_create():
+    eth_filename = input("Введите название файла для записи:")
+    eth_generator = AsyncEthWalletGenerator(AMOUNT_WALLETS, eth_filename)
+    await eth_generator.run()
+
+
+async def ton_wallet_create():
+    ton_filename = input("Введите название файла для записи:")
+    ton_generator = AsyncTonWalletGenerator(AMOUNT_WALLETS, ton_filename)
+    await ton_generator.run()
