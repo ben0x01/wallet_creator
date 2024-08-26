@@ -10,7 +10,8 @@ class AsyncSolanaWalletGenerator:
         self.wallets_amount = wallets_amount
         self.filename = filename
 
-    async def generate_wallet(self):
+    @staticmethod
+    async def generate_wallet():
         account = Keypair()
         private_key = base58.b58encode(account.secret() + base58.b58decode(str(account.pubkey()))).decode('utf-8')
         return str(account.pubkey()), private_key
