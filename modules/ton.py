@@ -11,7 +11,8 @@ class AsyncTonWalletGenerator:
         self.wallet_amounts = wallet_amounts
         self.filename = filename
 
-    async def generate_wallet(self):
+    @staticmethod
+    async def generate_wallet():
         wallet_workchain = 0
         wallet_version = WalletVersionEnum.v3r2
         wallet_mnemonics = mnemonic_new()
