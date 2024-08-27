@@ -9,7 +9,8 @@ class AsyncEthWalletGenerator:
         self.wallet_amounts = wallet_amounts
         self.filename = filename
 
-    async def generate_wallet(self):
+    @staticmethod
+    async def generate_wallet():
         account = Account.create()
         private_key = account.key.hex()
         address = account.address
