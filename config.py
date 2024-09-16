@@ -1,2 +1,10 @@
-AMOUNT_WALLETS = 1  # for test
-BTC_WALLET_SETUP = 'mainnet' # for generating testnte wallet change to testnet
+AMOUNT_WALLETS = 1 
+
+
+#неприкосновенный данные
+BTC_WALLET_SETUP = 'mainnet'
+BIP39_PBKDF2_ROUNDS = 2048
+BIP39_SALT_MODIFIER = "mnemonic"
+BIP32_PRIVDEV = 0x80000000
+BIP32_SEED_ED25519 = b'ed25519 seed'
+DERIVATION_PATH = "m/44'/637'/0'/0'/0'"
