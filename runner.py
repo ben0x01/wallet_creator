@@ -3,6 +3,8 @@ from modules.bitcoin import BitcoinWalletGenerator
 from modules.eth import AsyncEthWalletGenerator
 from modules.solana import AsyncSolanaWalletGenerator
 from modules.ton import AsyncTonWalletGenerator
+from modules.aptos import PublicKeyUtils
+from modules.sui import SuiPublicKeyUtils
 
 
 async def solana_wallet_create():
@@ -27,3 +29,16 @@ async def ton_wallet_create():
     ton_filename = input("Введите название файла для записи:")
     ton_generator = AsyncTonWalletGenerator(AMOUNT_WALLETS, ton_filename)
     await ton_generator.run()
+
+
+async def aptos_wallet_create():
+    aptos_filename = input("Введите название файла для записи:")
+    aptos_generator = PublicKeyUtils(AMOUNT_WALLETS, aptos_filename)
+    await aptos_generator.run()
+
+
+async def sui_wallet_create():
+    sui_filename = input("Введите название файла для записи:")
+    sui_utils = SuiPublicKeyUtils(wallet_amounts=AMOUNT_WALLETS, filename=sui_filename)
+    await sui_utils.run()
+
