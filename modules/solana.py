@@ -17,16 +17,20 @@ class AsyncSolanaWalletGenerator:
         return str(account.pubkey()), private_key
 
     async def write_wallets_to_txt(self, filename):
-        async with async_open(filename, 'w') as afp:
+        tasks = []
+        for _ in range(self.wallets_amount):
+            tasks.append(self.generate_wallet())
 
-            tasks = []
-            for _ in range(self.wallets_amount):
-                tasks.append(self.generate_wallet())
+        wallets = await asyncio.gather(*tasks)
 
-            wallets = await asyncio.gather(*tasks)
+        data = {
+            "WALLET": [wallet[0] for wallet in wallets],
+            "PRIVATE KEY": [wallet[1] for wallet in wallets],
+        }
 
-            for wallet in wallets:
-                await afp.write(f"WALLET: {wallet[0]} - PRIVATE KEY: {wallet[1]}\n")
+        df = pd.DataFrame(data)
+
+        df.to_excel(f"{filename}.xlsx", index=False)
 
     async def run(self):
         await self.write_wallets_to_txt(self.filename)
