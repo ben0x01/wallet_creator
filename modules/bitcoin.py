@@ -19,12 +19,19 @@ class BitcoinWalletGenerator:
         return private_key.to_wif(), public_key.to_hex(), address.to_string()
 
     async def write_data_to_file(self, filename):
-        async with async_open(f"{filename}", "w") as file:
-            tasks = [self.generate_wallet() for _ in range(self.wallet_amount)]
-            wallets = await asyncio.gather(*tasks)
+        tasks = [self.generate_wallet() for _ in range(self.wallet_amount)]
+        wallets = await asyncio.gather(*tasks)
 
-            for wallet in wallets:
-                await file.write(f"WALLET: {wallet[2]} - PUBLIC_KEY: {wallet[1]} - PRIVATE KEY: {wallet[0]}\n")
+        # Prepare DataFrame
+        data = {
+            'WALLET': [wallet[2] for wallet in wallets],
+            'PUBLIC_KEY': [wallet[1] for wallet in wallets],
+            'PRIVATE_KEY': [wallet[0] for wallet in wallets]
+        }
+        df = pd.DataFrame(data)
+
+        # Write DataFrame to Excel file
+        df.to_excel(f"{filename}.xlsx", index=False)
 
     async def run(self):
         await self.write_data_to_file(self.filename)
