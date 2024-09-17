@@ -42,3 +42,8 @@ async def sui_wallet_create():
     sui_utils = SuiPublicKeyUtils(wallet_amounts=AMOUNT_WALLETS, filename=sui_filename)
     await sui_utils.run()
 
+async def sei_wallet_create():
+    sei_filename = input("Введите название файла для записи:")
+    sei_wallet_generator = SeiWalletGenerator(AMOUNT_WALLETS, filename=f"{sei_filename}")
+    sei_wallet_generator.generate_sei_wallets_to_csv()
+
