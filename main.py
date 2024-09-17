@@ -1,6 +1,6 @@
 import asyncio
 from runner import solana_wallet_create, bitcoin_wallet_create, eth_wallet_create, ton_wallet_create, \
-    aptos_wallet_create, sui_wallet_create
+    aptos_wallet_create, sui_wallet_create, sei_wallet_create
 
 
 def main_menu():
@@ -11,7 +11,8 @@ def main_menu():
     print("4. Run generate ton wallets")
     print("5. Run generate aptos wallets")
     print("6. Run generate sui wallets")
-    print("7. Exit")
+    print("7. Run generate sei wallets")
+    print("8. Exit")
 
     choice = input("Choose an option: ").strip()
 
@@ -28,6 +29,8 @@ def main_menu():
     elif choice == '6':
         asyncio.run(sui_wallet_create())
     elif choice == '7':
+        asyncio.run(sei_wallet_create())
+    elif choice == '8':
         print("Exiting...")
         return
     else:
